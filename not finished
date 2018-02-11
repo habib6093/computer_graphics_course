@@ -1,0 +1,182 @@
+#include <GL/gl.h>
+#include <stdio.h>
+#include <GL/glut.h>
+#include <cmath>
+using namespace std;
+
+
+int m=0;
+void draw_line(int x1,int y1,int x2,int y2,int height,int width)
+{
+
+    //int num_of_coordinate=14;
+/*
+
+    double diff_a=abs(x1-x2);
+    double diff_b=abs(y1-y2);
+
+    if(x2<x1)
+     diff_a*=-1;
+
+    if(y2<y1)
+     diff_b*=-1;
+
+*/
+
+
+    for(int a=x1,b=y1;a<=x2;a+=width)
+    {
+ /*   	    printf("%lf  %lf\n",x,y);
+            int a=x,b=y;
+
+            if(m%2==0)
+             glColor3ub (0,300,300);
+            else
+             glColor3ub (300,0,300);
+
+*/
+    	    glBegin(GL_POLYGON);
+        	glVertex2i(a,b);
+        	glVertex2i(a+width,b);
+        	glVertex2i(a+width,b+height);
+        	glVertex2i(a,b+height);
+
+        	glEnd();
+
+//        	m++;
+
+    }
+
+
+
+}
+
+
+
+void temp(void)
+{
+
+	glClear (GL_COLOR_BUFFER_BIT);
+
+	glPointSize(5.0);
+
+
+
+
+
+        int x1=225,y1=25,x2=625,y2=25,sizes=25;
+
+        glColor3ub (0,0,0);
+        draw_line(x1,y1,x2,y2,sizes,sizes);
+
+      for(int a=0;a<=(25*5);a+=25)
+      {
+          glColor3ub (225,225,0);
+          x1=225-a,y1=45+a,x2=625+a,y2=45+a;
+          draw_line(x1,y1,x2,y2,sizes,sizes);
+      }
+
+
+      for(int a=(25*6),b=0;b<7;b++)
+      {
+          glColor3ub (225,225,0);
+          x1=225-a,y1=45+a+(b*25),x2=625+a,y2=45+a+(b*25);
+          draw_line(x1,y1,x2,y2,sizes,sizes);
+      }
+
+
+      x1=4*sizes,y1=15*sizes,x2=30*sizes,y2=15*sizes;
+
+      for(int a=0;a<1;a++)
+      {
+          glColor3ub (225,225,0);
+          x1=x1+(a*sizes),y1=y1+(a*sizes),x2=x2-(a*sizes),y2=y1+(a*sizes);
+          draw_line(x1,y1,x2,y2,sizes,sizes);
+      }
+
+
+
+/*
+
+        glColor3ub (225,225,0);
+        x1=200,y1=70,x2=650,y2=70;
+        draw_line(x1,y1,x2,y2,sizes,sizes);
+
+
+        glColor3ub (225,225,0);
+        x1=175,y1=95,x2=675,y2=95;
+        draw_line(x1,y1,x2,y2,sizes,sizes);
+
+
+
+        glColor3ub (225,225,0);
+        x1=150,y1=120,x2=700,y2=120;
+        draw_line(x1,y1,x2,y2,sizes,sizes);
+
+/*
+
+	//glColor3ub (200,100,100);
+
+/*
+    int x1,y1,x2,y2,num_of_coordinate=0;
+    x1=600,y1=300,x2=20,y2=400;
+    draw_line(x1,y1,x2,y2,10,10);
+
+    x1=20,y1=300,x2=600,y2=400;
+    draw_line(x1,y1,x2,y2,10,10);
+
+*/
+
+	glFlush();
+
+}
+
+
+
+
+
+
+
+
+
+
+void myDisplay(void)
+{
+	glClear (GL_COLOR_BUFFER_BIT);
+	glPointSize(5.0);
+
+
+
+
+
+	glFlush ();
+}
+
+
+
+
+void myInit (void)
+{
+	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluOrtho2D(0.0, 900.0, 0.0, 500.0);
+
+}
+
+main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize (900, 500);
+	glutInitWindowPosition (200, 150);
+	glutCreateWindow ("Ship");
+	//glutDisplayFunc(myDisplay);
+	glutDisplayFunc(temp);
+	myInit ();
+	glutMainLoop();
+}
+
+
+
+
