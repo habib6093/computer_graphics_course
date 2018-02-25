@@ -1,0 +1,204 @@
+#include <GL/gl.h>
+#include <stdio.h>
+#include <GL/glut.h>
+#include <cmath>
+#include <iostream>
+using namespace std;
+
+
+int row=2,column=3;
+
+int temps[4][4];
+
+void mulMatrix(int one[][4],int two[][4])
+{
+    cout<<"after"<<endl;
+    for(int i=1,l=1,k=1;i<=3;k++)
+    {
+        int m=0;
+        //cout<<"one"<<endl;
+        for(int j=1;j<=3;j++)
+        {
+            m+=one[i][j]*two[j][k];
+           // cout<<one[i][j]<<"  "<<two[j][k]<<endl;
+        }
+
+       // cout<<"mi"<<endl;
+
+        temps[i][k]=m;
+       // cout<<m<<endl;
+        if(k==3)
+        {
+            i++;
+            k=1;
+
+        }
+
+    }
+
+    for(int i=1;i<=3;i++)
+    {
+        for(int j=1;j<=3;j++)
+        {
+            cout<<temps[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+
+
+
+
+}
+
+
+
+void draw(int arr[][4])
+{
+
+    glPointSize(5.0);
+    glColor3ub (0,100,100);
+    glBegin(GL_POLYGON);
+
+    for(int i=1;i<=column;i++)
+    {
+       // cout<<i;
+ 	 glVertex2i(arr[1][i],arr[2][i]);
+ 	 cout<<arr[1][i]<<"  "<<arr[2][i]<<endl;
+    }
+/*
+    glVertex2i(0,0);
+    glVertex2i(60,40);
+    glVertex2i(20,300);*/
+
+    glEnd();
+}
+
+
+
+void multiply(int orginal[][4],int new1[][4],int new2[][4],int new3[][4])
+{
+
+
+   mulMatrix(new1,new2);
+   int now[4][4];
+
+   for(int i=1;i<=3;i++)
+   {
+       for(int j=1;j<=3;j++)
+       {
+           now[i][j]=temps[i][j];
+       }
+   }
+cout<<"now"<<endl;
+   mulMatrix(orginal,now);
+
+
+    for(int i=1;i<=3;i++)
+   {
+       for(int j=1;j<=3;j++)
+       {
+           now[i][j]=temps[i][j];
+       }
+   }
+
+   mulMatrix(now,new3);
+
+
+
+
+
+
+
+}
+
+
+
+void temp(void)
+{
+
+	glClear (GL_COLOR_BUFFER_BIT);
+    glColor3ub (100,0,0);
+	glPointSize(5.0);
+
+
+	    int orginal[4][4]={   {0,0,0,0},
+	                          {0,1,0,5},
+	                          {0,0,1,2},
+	                          {0,0,0,1}};
+
+	    int new1[4][4]={      {0,0,0,0},
+	                          {0,2,0,0},
+	                          {0,0,2,0},
+	                          {0,0,0,1}};
+
+    	int new2[4][4]={      {0,0,0,0},
+	                          {0,1,0,-5},
+	                          {0,0,1,-2},
+	                          {0,0,0,1}};
+
+
+        int new3[4][4]={      {0,0,0,0},
+	                          {0,0,1,5},
+	                          {0,0,1,2},
+	                          {0,1,1,1}};
+
+
+
+
+
+
+      draw(orginal);
+      //addition(arr,given);
+
+      mulMatrix(orginal,new1);
+
+      multiply(orginal,new1,new2,new3);
+
+
+
+	glFlush();
+
+}
+
+
+
+
+
+
+
+
+
+
+void myDisplay(void)
+{
+	glClear (GL_COLOR_BUFFER_BIT);
+	glPointSize(5.0);
+
+	glFlush ();
+}
+
+
+
+
+void myInit (void)
+{
+	glClearColor(1.0, 1.0, 1.0, 0.0);
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+	gluOrtho2D(0.0, 700.0, 0.0, 500.0);
+
+}
+
+main(int argc, char** argv)
+{
+	glutInit(&argc, argv);
+	glutInitDisplayMode (GLUT_SINGLE | GLUT_RGB);
+	glutInitWindowSize (700, 500);
+	glutInitWindowPosition (200, 150);
+	glutCreateWindow ("Ship");
+	//glutDisplayFunc(myDisplay);
+	glutDisplayFunc(temp);
+	myInit ();
+	glutMainLoop();
+}
