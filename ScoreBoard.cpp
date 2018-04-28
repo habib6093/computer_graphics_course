@@ -75,6 +75,7 @@ int main () {
 
   saveScore("Rahim",10);  ///pass name and score as parameter
   saveScore("Rahman",70);
+  saveScore("Minar",5);
 
   int how_many_score=2;
   scoreBoard ob[how_many_score]; /// create scoreboard object array...
@@ -86,3 +87,8 @@ int main () {
 
   return 0;
 }
+
+
+
+
+
