@@ -90,5 +90,12 @@ int main () {
 
 
 
+//output////
+
+//player name: Rahman  score: 70
+//player name: Rahim  score: 10
+
+
+
 
 
